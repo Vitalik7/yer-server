@@ -1,0 +1,27 @@
+{
+  "name": "feedback-cherkasy",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "server": "nodemon express/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JS7 team",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.14.0",
+    "fs": "*",
+    "http": "0.0.0",
+    "mongoose": "^5.0.4",
+    "mongoose-likes": "^0.1.0",
+    "nodemon": "^1.17.2",
+    "os": "^0.1.1",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
+  },
+  "description": "feedback-cherkasy"
+}
