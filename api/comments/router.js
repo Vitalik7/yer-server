@@ -1,28 +1,54 @@
 const express = require('express');
-const Present = require('./model')
+const Comment = require('./model')
 const router = express.Router();
 
 router.get('/presents', (req, res, next) => {
     console.log('GET');
-    Present.find()
-        .then(present => {
-            res.json({present})
+    Comment.find()
+        .then(comment => {
+            res.json({comment})
         })
         .catch(next)
 });
 
-router.post('/present', (req, res, next) => {
+router.post('/comment', (req, res, next) => {
   console.log('POST');
-    new Present(req.body.present)
+    new Comment(req.body.comment)
         .save()
-        .then(function (presents) {
-            res.json({presents})
+        .then(function (comments) {
+            res.json({comments})
         })
         .catch(next)
 });
 
-router.put('/presents/:id', function(req, res){
-	console.log(1111, req.body, res);
-});
+// router.get('/comment/:id', (req, res, next) => {
+//     let id = req.params._id;
+//     Comment.findOne({ id: id })
+//         .then(function (comment) {
+//         res.json({comment})
+//     }).catch(next)
+// });
+
+// router.post('/comment/:id', function (req, res) {
+//     Comment.findById(req.params.id, function (err, theUser) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             theUser.likes += 1;
+//             theUser.save();
+//             console.log(theUser.likes);
+//             res.send({likeCount: theUser.likes}); //something like this...
+//         }
+//     });
+// });
+
+// router.get('/category/:category', (req, res, next) => {
+//     Comment
+//         .find({category: req.params.category})
+//         .then(comments => {
+//             res.json({comments})
+//         })
+//         .catch(next)
+// });
 
 module.exports = router;
