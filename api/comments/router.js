@@ -5,18 +5,18 @@ const router = express.Router();
 router.get('/presents', (req, res, next) => {
     console.log('GET');
     Comment.find()
-        .then(comment => {
-            res.json({comment})
+        .then(present => {
+            res.json({present})
         })
         .catch(next)
 });
 
-router.post('/comment', (req, res, next) => {
+router.post('/presents', (req, res, next) => {
   console.log('POST');
-    new Comment(req.body.comment)
+    new Comment(req.body.present)
         .save()
-        .then(function (comments) {
-            res.json({comments})
+        .then(function (presents) {
+            res.json({presents})
         })
         .catch(next)
 });
