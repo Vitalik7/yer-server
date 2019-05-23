@@ -21,18 +21,18 @@ router.put('/presents/:index', function (req, res) {
     console.log('present', present)
 
     present.save(function(err) {
-    if (err) {
-        console.log('err', err)
-        return res.send('/presents', {
-            errors: err.errors,
-            present: present
-        });
-    } else {
-        res.jsonp(present);
-        console.log('seccess', present)
-    }
-
-});
+        if (err) {
+            console.log('err', err)
+            return res.send('/presents', {
+                errors: err.errors,
+                present: present
+            });
+        } else {
+            res.jsonp(present);
+            console.log('seccess', present)
+        }
+    })
+})
 
 router.post('/presents', (req, res, next) => {
   console.log('POST');
