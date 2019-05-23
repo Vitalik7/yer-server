@@ -11,7 +11,7 @@ router.get('/presents', (req, res, next) => {
         .catch(next)
 });
 
-router.put('/present', function (req, res) {
+router.put('/presents/:index', function (req, res) {
     var present = req.present;
     console.log('req', req)
     console.log('res', res)
@@ -23,7 +23,7 @@ router.put('/present', function (req, res) {
     present.save(function(err) {
     if (err) {
         console.log('err', err)
-        return res.send('/present', {
+        return res.send('/presents', {
             errors: err.errors,
             present: present
         });
