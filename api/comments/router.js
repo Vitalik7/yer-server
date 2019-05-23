@@ -11,6 +11,29 @@ router.get('/presents', (req, res, next) => {
         .catch(next)
 });
 
+router.put('/present', function (req, res) {
+    var present = req.present;
+    console.log('req', req)
+    console.log('res', res)
+
+    present = _.extend(present, req.body);
+
+    console.log('present', present)
+
+    present.save(function(err) {
+    if (err) {
+        console.log('err', err)
+        return res.send('/present', {
+            errors: err.errors,
+            present: present
+        });
+    } else {
+        res.jsonp(present);
+        console.log('seccess', present)
+    }
+
+});
+
 router.post('/presents', (req, res, next) => {
   console.log('POST');
     new Comment(req.body.present)
