@@ -1,6 +1,8 @@
 const express = require('express');
 const Comment = require('./model')
+const _ = require('lodash')
 const router = express.Router();
+
 
 router.get('/presents', (req, res, next) => {
     console.log('GET');
@@ -11,27 +13,97 @@ router.get('/presents', (req, res, next) => {
         .catch(next)
 });
 
-router.put('/presents/:index', function (req, res) {
-    var present = req.present;
-    console.log('req', req)
-    console.log('res', res)
+router.get('/presents/:index', (req, res, next) => {
+    let id = req.params.index;
+    console.log(req.params)
+    Comment.findOne({ index: id })
+        .then(function (comment) {
+        res.json({comment})
+    }).catch(next)
+});
 
-    present = _.extend(present, req.body);
+router.put(`/presents/:id`, function (req, res, next) {
 
-    console.log('present', present)
 
-    present.save(function(err) {
-        if (err) {
-            console.log('err', err)
-            return res.send('/presents', {
-                errors: err.errors,
-                present: present
-            });
-        } else {
-            res.jsonp(present);
-            console.log('seccess', present)
+    // Comment.findOneAndUpdate(req.params.id, req.body, (err, doc) => {
+    //     if (err) {
+    //         console.log("Something wrong when updating data!");
+    //     }
+    //     console.log(req.body);
+    //     console.log(doc);
+    //     return res.json(doc)
+    //     // return res.status(200).send(doc)
+    // })
+
+
+    Comment.findByIdAndUpdate(
+        // the id of the item to find
+        req.params.id,
+        
+        // the change to be made. Mongoose will smartly combine your existing 
+        // document with this change, which allows for partial updates too
+        req.body,
+        
+        // an option that asks mongoose to return the updated version 
+        // of the document instead of the pre-updated one.
+        {new: false},
+        
+        // the callback function
+        (err, todo) => {
+            console.log('req.body', req.body)
+            console.log('todo', todo)
+        // Handle any possible database errors
+            if (err) return res.status(500).send(err);
+            return res.send(todo);
         }
-    })
+    )
+
+
+    // Comment.findById(req.params.id, (err, comm) => {
+    //     console.log('comm', comm)
+    //     if (err) return res.status(500).send(err)
+    //     return res.status(200).send(comm)
+    // });
+
+
+    // console.log(req.body)
+    // req.params.update(req.body, (err, result) => {
+    //     if (err) return next(err);
+    //     res.json(result);
+    //   });
+
+    // Comment.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(upd) {
+    //     Comment.findOne({_id: req.params.id}).then(function(comm) {
+    //         console.log('comm', req.body)
+    //         // comm.checked = true
+    //         res.json(req.body)
+    //         // res.send(req.body)
+    //     })
+    // })
+    
+
+
+    // var present = req.present;
+    // console.log('req', req)
+    // console.log('res', res)
+
+    // present = _.extend(present, req.body);
+
+    // console.log('present', present)
+    // res.send(present)
+
+    // present.save(function(err) {
+    //     if (err) {
+    //         console.log('err', err)
+    //         return res.send('/presents', {
+    //             errors: err.errors,
+    //             present: present
+    //         });
+    //     } else {
+    //         res.jsonp(present);
+    //         console.log('seccess', present)
+    //     }
+    // })
 })
 
 router.post('/presents', (req, res, next) => {
