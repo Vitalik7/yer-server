@@ -10,8 +10,8 @@
   "author": "JS7 team",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.14.0",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "fs": "*",
     "http": "0.0.0",
     "lodash": "^4.17.11",
